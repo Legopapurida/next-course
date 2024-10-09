@@ -21,7 +21,6 @@ export async function POST(request: NextRequest) {
     data: {
       name: validation.data.name,
       email: validation.data.email,
-      followers: validation.data.followers,
     },
   });
   return NextResponse.json(newUser, { status: 201 });

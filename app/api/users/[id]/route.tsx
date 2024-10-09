@@ -8,7 +8,7 @@ interface Props {
 
 export async function GET(request: NextRequest, { params: { id } }: Props) {
   const user = await prisma.user.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: id },
   });
   if (user) return NextResponse.json(user);
   return NextResponse.json(
@@ -26,7 +26,7 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
     return NextResponse.json(validation.error.errors, { status: 400 });
   const user = await prisma.user.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
   if (!user)
@@ -49,7 +49,7 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
 export async function DELETE(request: NextRequest, { params: { id } }: Props) {
   try {
     const deletedUser = await prisma.user.delete({
-      where: { id: parseInt(id) },
+      where: { id: id },
     });
     return NextResponse.json(deletedUser, { status: 200 });
   } catch (error) {

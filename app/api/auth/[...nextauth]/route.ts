@@ -1,10 +1,11 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/prisma/client";
-import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcrypt";
-export const authOptions: NextAuthOptions = {
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+// export const authOptions: NextAuthOptions =
+const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
@@ -40,7 +41,6 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
-};
-const handler = NextAuth(authOptions);
+});
 
 export { handler as GET, handler as POST };
